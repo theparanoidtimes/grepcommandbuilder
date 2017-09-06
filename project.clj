@@ -2,7 +2,7 @@
   :description "A Reagent frontend app for constructing the grep command."
   :url "http://example.com/FIXME"
   :license {:name "The MIT License"
-            :url ""}
+            :url "http://opensource.org/licenses/MIT"}
 
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.908"]
