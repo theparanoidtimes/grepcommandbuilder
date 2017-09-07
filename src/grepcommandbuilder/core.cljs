@@ -19,8 +19,19 @@
                                 (:case s) (conj "-i")
                                 (:whole-word s) (conj "-w")
                                 (:invert s) (conj "-v")
-                                (:line-numbers s) (conj "-l")
+                                (:line-numbers s) (conj "-n")
                                 (:matching s) (conj "-o")
+                                (:count s) (conj "-c")
+                                (:file-names s) (conj "-l")
+                                (and
+                                 (:lines-before-checked s)
+                                 (:lines-before s)) (conj (str "-B " (:lines-before s)))
+                                (and
+                                 (:lines-after-checked s)
+                                 (:lines-after s)) (conj (str "-A " (:lines-after s)))
+                                (and
+                                 (:lines-around-checked s)
+                                 (:lines-around s)) (conj (str "-C " (:lines-around s)))
                                 (:pattern s) (conj (add-quotes (:pattern s)))
                                 (:location s) (conj (:location s)))))))
 
@@ -65,16 +76,64 @@
   (toggleable-checkbox "Case insensitive?" :case state))
 
 (defn whole-word-checkbox []
-  (toggleable-checkbox "Whole word?" :whole-word state))
+  (toggleable-checkbox "Search for whole word?" :whole-word state))
 
 (defn invert-checkbox []
-  (toggleable-checkbox "Invert martch?" :invert state))
+  (toggleable-checkbox "Invert match?" :invert state))
 
 (defn line-number-checkbox []
-  (toggleable-checkbox "Show line numbers?" :line-numbers state))
+  (toggleable-checkbox "Show matching line numbers?" :line-numbers state))
 
 (defn only-matching-string-checkbox []
   (toggleable-checkbox "Show matching string only?" :matching state))
+
+(defn count-checkbox []
+  (toggleable-checkbox "Count matches?" :count state))
+
+(defn filen-names-checkbox []
+  (toggleable-checkbox "Show matching file names?" :file-names state))
+
+(defn lines-before-input []
+  [:div
+   [:label "Show lines before match?"]
+   [:input {:type "checkbox"
+            :checked (or false (:lines-before-checked @state))
+            :on-change #(swap! state update :lines-before-checked not)}]
+   [:input {:type "number"
+            :min 0
+            :step 1
+            :class "inline-input"
+            :disabled (not (:lines-before-checked @state))
+            :value (:lines-before @state)
+            :on-change #(swap! state assoc :lines-before (input-field-value %))}]])
+
+(defn lines-around-input []
+  [:div
+   [:label "Show lines around match?"]
+   [:input {:type "checkbox"
+            :checked (or false (:lines-around-checked @state))
+            :on-change #(swap! state update :lines-around-checked not)}]
+   [:input {:type "number"
+            :min 0
+            :step 1
+            :class "inline-input"
+            :disabled (not (:lines-around-checked @state))
+            :value (:lines-around @state)
+            :on-change #(swap! state assoc :lines-around (input-field-value %))}]])
+
+(defn lines-after-input []
+  [:div
+   [:label "Show lines after match?"]
+   [:input {:type "checkbox"
+            :checked (or false (:lines-after-checked @state))
+            :on-change #(swap! state update :lines-after-checked not)}]
+   [:input {:type "number"
+            :min 0
+            :step 1
+            :class "inline-input"
+            :disabled (not (:lines-after-checked @state))
+            :value (:lines-after @state)
+            :on-change #(swap! state assoc :lines-after (input-field-value %))}]])
 
 (defn command-display []
   [:div
@@ -99,6 +158,11 @@
     [invert-checkbox]
     [line-number-checkbox]
     [only-matching-string-checkbox]
+    [count-checkbox]
+    [filen-names-checkbox]
+    [lines-before-input]
+    [lines-after-input]
+    [lines-around-input]
     [command-display]]
    [:div {:class "copy"}
     [:p "\u00A9 2017 Made by Dejan Josifovic " [:a {:href "http://theparanoidtimes.org"} "theparanoidtimes.org"]]]])
