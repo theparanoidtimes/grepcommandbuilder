@@ -1,0 +1,43 @@
+* Version 0.1
+  DEADLINE: <2017-09-24 Sun>
+** TODO Implement selected grep variants
+*** DONE Base variant
+    CLOSED: [2017-09-03 Sun 00:00]
+*** DONE Recursive
+    CLOSED: [2017-09-03 Sun 00:00]
+*** DONE Case insensitive
+    CLOSED: [2017-09-03 Sun 00:00]
+*** DONE Whole word
+    CLOSED: [2017-09-03 Sun 00:00]
+*** DONE Invert
+    CLOSED: [2017-09-03 Sun 00:00]
+*** DONE Line numbers
+    CLOSED: [2017-09-03 Sun 00:00]
+*** DONE Matching string
+    CLOSED: [2017-09-03 Sun 00:00]
+*** DONE Count
+    CLOSED: [2017-09-03 Sun 00:00]
+*** DONE File names
+    CLOSED: [2017-09-03 Sun 00:00]
+*** DONE Lines before
+    CLOSED: [2017-09-05 Tue 00:00]
+*** DONE Lines after
+    CLOSED: [2017-09-05 Tue 00:00]
+*** DONE Lines around
+    CLOSED: [2017-09-05 Tue 00:00]
+*** TODO Possition in file
+** DONE Add 'Copy to clipboard' button
+   CLOSED: [2017-09-12 Tue 01:13]
+*** DONE Add show 'Copied!' when clicked feature
+    CLOSED: [2017-09-12 Tue 01:15]
+** theparanoidtimes.org package
+** DONE Create github pages branch
+   CLOSED: [2017-09-08 Fri 02:21]
+*** DONE Bind the project to theparanoidtimes.org domain
+    CLOSED: [2017-09-08 Fri 02:21]
+** DONE Publish snapshot to github pages
+   CLOSED: [2017-09-08 Fri 02:21]
+** TODO Fully implement CSS
+** TODO Update README for master
+** TODO Update README for gh-pages branch
+** TODO Release on github pages
