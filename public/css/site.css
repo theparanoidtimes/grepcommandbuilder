@@ -78,6 +78,7 @@ a:hover {
     font-size: 20px;
     margin-top: 20px;
     max-width: 450px;
+    padding: 0;
 }
 
 .copy {
@@ -90,4 +91,14 @@ a:hover {
 .inline-input {
     margin-left: 5px;
     width: 300px;
+}
+
+.clipboard {
+    width: 25px;
+    height: 25px;
+    display: inline;
+    margin-left: 5px;
+    border: 1px solid #2a2b2b;
+    background: url(/img/clipboard.png) no-repeat;
+    background-size: cover;
 }

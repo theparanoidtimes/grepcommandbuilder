@@ -1,6 +1,7 @@
 (ns grepcommandbuilder.core
   (:require
-   [reagent.core :as r]))
+   [reagent.core :as r]
+   cljsjs.clipboard))
 
 
 ;; App state
@@ -43,12 +44,32 @@
   [:div
    [:label label-text]
    [:input {:type "checkbox"
-            :checked (or false (state-flag @state-atom))
             :on-change #(swap! state-atom update state-flag not)}]])
 
 (defn input-field-value
   [e]
   (-> e .-target .-value))
+
+(defn timed-display-copy []
+  (when-not (pos? (:clp @state))
+    (swap! state assoc :clp 1)
+    (swap! state assoc :int (js/setInterval #(swap! state update :clp dec) 1000))))
+
+(defn clipboard-button
+  [target]
+  (let [clipboard-atom (atom nil)]
+    (r/create-class
+     {:display-name "clipboard-button"
+      :component-did-mount #(let [clipboard (new js/Clipboard (r/dom-node %))]
+                              (reset! clipboard-atom clipboard))
+      :component-will-unmount #(when-not (nil? @clipboard-atom)
+                                 (.destroy @clipboard-atom)
+                                 (reset! clipboard-atom nil))
+      :reagent-render (fn []
+                        [:button.clipboard
+                         {:data-clipboard-target target
+                          :title "Copy to clipboard"
+                          :on-click #(timed-display-copy)}])})))
 
 
 ;; Views
@@ -58,6 +79,7 @@
    [:label "Search for (pattern): "]
    [:input {:type "text"
             :name "pattern-input-field"
+            :value (:pattern @state)
             :on-change #(if-not (empty? (input-field-value %))
                           (swap! state assoc :pattern (input-field-value %))
                           (swap! state dissoc :pattern))}]])
@@ -67,7 +89,10 @@
    [:label "Search in (pattern): "]
    [:input {:type "text"
             :name "location-input-field"
-            :on-change #(swap! state assoc :location (input-field-value %))}]])
+            :value (:location @state)
+            :on-change #(if-not (empty? (input-field-value %))
+                          (swap! state assoc :location (input-field-value %))
+                          (swap! state dissoc :location))}]])
 
 (defn recursive-checkbox []
   (toggleable-checkbox "Recursive?" :recursive state))
@@ -97,7 +122,6 @@
   [:div
    [:label "Show lines before match?"]
    [:input {:type "checkbox"
-            :checked (or false (:lines-before-checked @state))
             :on-change #(swap! state update :lines-before-checked not)}]
    [:input {:type "number"
             :min 0
@@ -111,7 +135,6 @@
   [:div
    [:label "Show lines around match?"]
    [:input {:type "checkbox"
-            :checked (or false (:lines-around-checked @state))
             :on-change #(swap! state update :lines-around-checked not)}]
    [:input {:type "number"
             :min 0
@@ -125,7 +148,6 @@
   [:div
    [:label "Show lines after match?"]
    [:input {:type "checkbox"
-            :checked (or false (:lines-after-checked @state))
             :on-change #(swap! state update :lines-after-checked not)}]
    [:input {:type "number"
             :min 0
@@ -138,12 +160,17 @@
 (defn command-display []
   [:div
    [:label {:class "command-label"} "Final command: "]
-   [:input {:class "command-input"
+   [:input {:id "command-input"
+            :class "command-input"
             :type "text"
             :name "command-display-field"
             :readOnly true
             :value (parse-state @state)
-            :on-change (parse-state @state)}]])
+            :on-change (parse-state @state)}]
+   [clipboard-button "#command-input"]
+   [:span {:class "clp-info"} (if (pos? (:clp @state))
+                                "Copied!"
+                                (js/clearInterval (:int @state)))]])
 
 (defn home-page []
   [:div
