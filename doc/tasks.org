@@ -26,6 +26,7 @@
 *** DONE Lines around
     CLOSED: [2017-09-05 Tue 00:00]
 *** TODO Possition in file
+*** TODO Output to file
 ** DONE Add 'Copy to clipboard' button
    CLOSED: [2017-09-12 Tue 01:13]
 *** DONE Add show 'Copied!' when clicked feature
