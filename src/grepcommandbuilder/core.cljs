@@ -24,6 +24,7 @@
                                 (:matching s) (conj "-o")
                                 (:count s) (conj "-c")
                                 (:file-names s) (conj "-l")
+                                (:offset s) (conj "-b")
                                 (and
                                  (:lines-before-checked s)
                                  (:lines-before s)) (conj (str "-B " (:lines-before s)))
@@ -34,7 +35,10 @@
                                  (:lines-around-checked s)
                                  (:lines-around s)) (conj (str "-C " (:lines-around s)))
                                 (:pattern s) (conj (add-quotes (:pattern s)))
-                                (:location s) (conj (:location s)))))))
+                                (:location s) (conj (:location s))
+                                (and
+                                 (:file-checked s)
+                                 (:file s)) (conj (str "> " (:file s))))))))
 
 
 ;; Util
@@ -115,8 +119,11 @@
 (defn count-checkbox []
   (toggleable-checkbox "Count matches?" :count state))
 
-(defn filen-names-checkbox []
+(defn file-names-checkbox []
   (toggleable-checkbox "Show matching file names?" :file-names state))
+
+(defn offset-checkbox []
+  (toggleable-checkbox "Show position in file?" :offset state))
 
 (defn lines-before-input []
   [:div
@@ -157,6 +164,17 @@
             :value (:lines-after @state)
             :on-change #(swap! state assoc :lines-after (input-field-value %))}]])
 
+(defn output-to-file-input []
+  [:div
+   [:label "Output result in file?"]
+   [:input {:type "checkbox"
+            :on-change #(swap! state update :file-checked not)}]
+   [:input {:type "text"
+            :class "inline-input"
+            :disabled (not (:file-checked @state))
+            :value (:file @state)
+            :on-change #(swap! state assoc :file (input-field-value %))}]])
+
 (defn command-display []
   [:div
    [:label {:class "command-label"} "Final command: "]
@@ -186,10 +204,12 @@
     [line-number-checkbox]
     [only-matching-string-checkbox]
     [count-checkbox]
-    [filen-names-checkbox]
+    [file-names-checkbox]
+    [offset-checkbox]
     [lines-before-input]
     [lines-after-input]
     [lines-around-input]
+    [output-to-file-input]
     [command-display]]
    [:div {:class "copy"}
     [:p "\u00A9 2017 Made by Dejan Josifovic " [:a {:href "http://theparanoidtimes.org"} "theparanoidtimes.org"]]]])
