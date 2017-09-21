@@ -1,7 +1,8 @@
 (ns grepcommandbuilder.core
   (:require
    [reagent.core :as r]
-   cljsjs.clipboard))
+   [keybind.core :as key]
+   [cljsjs.clipboard :refer :all]))
 
 
 ;; App state
@@ -48,7 +49,7 @@
   [:div
    [:label label-text]
    [:input {:type "checkbox"
-            :on-change #(swap! state-atom update state-flag not)}]])
+            :on-change #(swap! state-atom assoc state-flag (-> % .-target .-checked))}]])
 
 (defn input-field-value
   [e]
@@ -212,13 +213,14 @@
     [output-to-file-input]
     [command-display]]
    [:div {:class "copy"}
-    [:p "\u00A9 2017 Made by Dejan Josifovic " [:a {:href "http://theparanoidtimes.org"} "theparanoidtimes.org"]]]])
+    [:p "\u00A9 2017 Dejan Josifovic " [:a {:href "http://theparanoidtimes.org"} "theparanoidtimes.org"]]]])
 
 
 ;; Initialize app
 
 (defn mount-root []
-  (r/render [home-page] (.getElementById js/document "app")))
+  (r/render [home-page] (.getElementById js/document "app"))
+  (key/bind! "esc" ::clear-state (fn [] (swap! state empty))))
 
 (defn init! []
   (mount-root))

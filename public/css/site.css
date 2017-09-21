@@ -36,7 +36,7 @@ label {
 input {
     font-size: 15px;
     display: inline-block;
-    width: 328px;
+    width: 300px;
     background-color: #616363;
     border: 0;
     color: #ddd;
@@ -90,15 +90,19 @@ a:hover {
 
 .inline-input {
     margin-left: 5px;
-    width: 300px;
+    width: 100px;
 }
 
 .clipboard {
-    width: 25px;
-    height: 25px;
+    width: 37px;
+    height: 37px;
     display: inline;
     margin-left: 5px;
     border: 1px solid #2a2b2b;
     background: url(/img/clipboard.png) no-repeat;
     background-size: cover;
+}
+
+.clp-info {
+    display: block;
 }
