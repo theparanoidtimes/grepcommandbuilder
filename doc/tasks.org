@@ -40,7 +40,15 @@
     CLOSED: [2017-09-08 Fri 02:21]
 ** DONE Publish snapshot to github pages
    CLOSED: [2017-09-08 Fri 02:21]
-** TODO Fully implement CSS
+** DONE Bind ESC button to delete whole state
+   CLOSED: [2017-09-25 Mon 00:29]
+** DONE Fully implement CSS
+   CLOSED: [2017-09-25 Mon 00:51]
 ** TODO Update README for master
 ** TODO Update README for gh-pages branch
 ** TODO Release on github pages
+
+* Version 0.2
+** TODO Add help/tutorial text
+** TODO Improve code to eliminate Reach controlled/uncontrolled inputs warning
+** TODO Add more grep commands

@@ -2,7 +2,7 @@
   (:require
    [reagent.core :as r]
    [keybind.core :as key]
-   [cljsjs.clipboard :refer :all]))
+   cljsjs.clipboard))
 
 
 ;; App state
@@ -44,21 +44,53 @@
 
 ;; Util
 
-(defn toggleable-checkbox
-  [label-text state-flag state-atom]
-  [:div
-   [:label label-text]
-   [:input {:type "checkbox"
-            :on-change #(swap! state-atom assoc state-flag (-> % .-target .-checked))}]])
-
 (defn input-field-value
   [e]
   (-> e .-target .-value))
 
+(defn checkbox-field-value
+  [e]
+  (-> e .-target .-checked))
+
+(defn checked-numbers-input
+  [text checked-flag flag]
+  [:div
+   [:label text]
+   [:input {:type "checkbox"
+            :checked (checked-flag @state)
+            :on-change #(swap! state assoc checked-flag (checkbox-field-value %))}]
+   [:input {:type "number"
+            :min 0
+            :step 1
+            :class "inline-input"
+            :disabled (not (checked-flag @state))
+            :value (flag @state)
+            :on-change #(swap! state assoc flag (input-field-value %))}]])
+
+(defn checked-text-input
+  [text checked-flag flag]
+  [:div
+   [:label text]
+   [:input {:type "checkbox"
+            :checked (checked-flag @state)
+            :on-change #(swap! state assoc checked-flag (checkbox-field-value %))}]
+   [:input {:type "text"
+            :class "inline-input"
+            :disabled (not (checked-flag @state))
+            :value (flag @state)
+            :on-change #(swap! state assoc flag (input-field-value %))}]] )
+
+(defn toggleable-checkbox
+  [text flag]
+  [:div
+   [:label text]
+   [:input {:type "checkbox"
+            :checked (flag @state)
+            :on-change #(swap! state assoc flag (checkbox-field-value %))}]])
+
 (defn timed-display-copy []
   (when-not (pos? (:clp @state))
-    (swap! state assoc :clp 1)
-    (swap! state assoc :int (js/setInterval #(swap! state update :clp dec) 1000))))
+    (swap! state assoc :clp 1 :int (js/setInterval #(swap! state update :clp dec) 1000))))
 
 (defn clipboard-button
   [target]
@@ -100,81 +132,43 @@
                           (swap! state dissoc :location))}]])
 
 (defn recursive-checkbox []
-  (toggleable-checkbox "Recursive?" :recursive state))
+  (toggleable-checkbox "Recursive?" :recursive))
 
 (defn case-insensitive-checkbox []
-  (toggleable-checkbox "Case insensitive?" :case state))
+  (toggleable-checkbox "Case insensitive?" :case))
 
 (defn whole-word-checkbox []
-  (toggleable-checkbox "Search for whole word?" :whole-word state))
+  (toggleable-checkbox "Search for whole word?" :whole-word))
 
 (defn invert-checkbox []
-  (toggleable-checkbox "Invert match?" :invert state))
+  (toggleable-checkbox "Invert match?" :invert))
 
 (defn line-number-checkbox []
-  (toggleable-checkbox "Show matching line numbers?" :line-numbers state))
+  (toggleable-checkbox "Show matching line numbers?" :line-numbers))
 
 (defn only-matching-string-checkbox []
-  (toggleable-checkbox "Show matching string only?" :matching state))
+  (toggleable-checkbox "Show matching string only?" :matching))
 
 (defn count-checkbox []
-  (toggleable-checkbox "Count matches?" :count state))
+  (toggleable-checkbox "Count matches?" :count))
 
 (defn file-names-checkbox []
-  (toggleable-checkbox "Show matching file names?" :file-names state))
+  (toggleable-checkbox "Show matching file names?" :file-names))
 
 (defn offset-checkbox []
-  (toggleable-checkbox "Show position in file?" :offset state))
+  (toggleable-checkbox "Show position in file?" :offset))
 
 (defn lines-before-input []
-  [:div
-   [:label "Show lines before match?"]
-   [:input {:type "checkbox"
-            :on-change #(swap! state update :lines-before-checked not)}]
-   [:input {:type "number"
-            :min 0
-            :step 1
-            :class "inline-input"
-            :disabled (not (:lines-before-checked @state))
-            :value (:lines-before @state)
-            :on-change #(swap! state assoc :lines-before (input-field-value %))}]])
+  (checked-numbers-input "Show N lines before match?" :lines-before-checked :lines-before))
 
 (defn lines-around-input []
-  [:div
-   [:label "Show lines around match?"]
-   [:input {:type "checkbox"
-            :on-change #(swap! state update :lines-around-checked not)}]
-   [:input {:type "number"
-            :min 0
-            :step 1
-            :class "inline-input"
-            :disabled (not (:lines-around-checked @state))
-            :value (:lines-around @state)
-            :on-change #(swap! state assoc :lines-around (input-field-value %))}]])
+  (checked-numbers-input "Show N lines around match?" :lines-around-checked :lines-around))
 
 (defn lines-after-input []
-  [:div
-   [:label "Show lines after match?"]
-   [:input {:type "checkbox"
-            :on-change #(swap! state update :lines-after-checked not)}]
-   [:input {:type "number"
-            :min 0
-            :step 1
-            :class "inline-input"
-            :disabled (not (:lines-after-checked @state))
-            :value (:lines-after @state)
-            :on-change #(swap! state assoc :lines-after (input-field-value %))}]])
+  (checked-numbers-input "Show N lines after match?" :lines-after-checked :lines-after))
 
 (defn output-to-file-input []
-  [:div
-   [:label "Output result in file?"]
-   [:input {:type "checkbox"
-            :on-change #(swap! state update :file-checked not)}]
-   [:input {:type "text"
-            :class "inline-input"
-            :disabled (not (:file-checked @state))
-            :value (:file @state)
-            :on-change #(swap! state assoc :file (input-field-value %))}]])
+  (checked-text-input "Output result in file?" :file-checked :file))
 
 (defn command-display []
   [:div
@@ -196,6 +190,8 @@
    [:div {:class "main"}
     [:div {:class "heading"}
      [:h1 "Welcome to grep command builder"]]
+    [:div {:class "text"}
+     [:h4 ""]]
     [pattern-input]
     [location-input]
     [recursive-checkbox]
