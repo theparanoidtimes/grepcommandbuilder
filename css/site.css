@@ -10,7 +10,7 @@ body {
     background-color: #2a2b2b;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     color: #6bffbd;
 }
 
@@ -36,7 +36,7 @@ label {
 input {
     font-size: 15px;
     display: inline-block;
-    width: 328px;
+    width: 300px;
     background-color: #616363;
     border: 0;
     color: #ddd;
@@ -78,6 +78,7 @@ a:hover {
     font-size: 20px;
     margin-top: 20px;
     max-width: 450px;
+    padding: 0;
 }
 
 .copy {
@@ -89,5 +90,24 @@ a:hover {
 
 .inline-input {
     margin-left: 5px;
-    width: 300px;
+    width: 100px;
+}
+
+.clipboard {
+    width: 37px;
+    height: 37px;
+    display: inline;
+    margin-left: 5px;
+    border: 1px solid #2a2b2b;
+    background: url(../img/clipboard.png) no-repeat;
+    background-size: cover;
+}
+
+.clp-info {
+    display: block;
+}
+
+.text {
+    line-height: 1.3em;
+    color: #6bffbd;
 }
