@@ -1,4 +1,4 @@
-(defproject grepcommandbuilder "0.1"
+(defproject grepcommandbuilder "0.2-SNAPSHOT"
   :description "A Reagent frontend app for constructing the grep command."
   :url "http://theparanoidtimes.org/grepcommandbuilder/"
   :license {:name "The MIT License"
