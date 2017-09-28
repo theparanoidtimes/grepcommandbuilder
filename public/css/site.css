@@ -108,5 +108,6 @@ a:hover {
 }
 
 .text {
-    text-align: center;
+    line-height: 1.3em;
+    color: #6bffbd;
 }

@@ -191,7 +191,7 @@
     [:div {:class "heading"}
      [:h1 "Welcome to grep command builder"]]
     [:div {:class "text"}
-     [:h4 ""]]
+     [:p "Define what you need and construct the command." [:br] "Esc clears everything."]]
     [pattern-input]
     [location-input]
     [recursive-checkbox]
@@ -209,7 +209,8 @@
     [output-to-file-input]
     [command-display]]
    [:div {:class "copy"}
-    [:p "\u00A9 2017 Dejan Josifovic " [:a {:href "http://theparanoidtimes.org"} "theparanoidtimes.org"]]]])
+    [:p "\u00A9 grepcommandbuilder v0.1 2017 Dejan Josifović "
+     [:a {:href "http://theparanoidtimes.org"} "theparanoidtimes.org"]]]])
 
 
 ;; Initialize app

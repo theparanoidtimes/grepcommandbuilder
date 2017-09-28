@@ -44,7 +44,8 @@
    CLOSED: [2017-09-25 Mon 00:29]
 ** DONE Fully implement CSS
    CLOSED: [2017-09-25 Mon 00:51]
-** TODO Update README for master
+** DONE Update README for master
+   CLOSED: [2017-09-28 Thu 20:22]
 ** TODO Update README for gh-pages branch
 ** TODO Release on github pages
 
@@ -52,3 +53,4 @@
 ** TODO Add help/tutorial text
 ** TODO Improve code to eliminate Reach controlled/uncontrolled inputs warning
 ** TODO Add more grep commands
+** TODO Refactor 'Copied!' part
