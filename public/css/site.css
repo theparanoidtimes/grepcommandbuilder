@@ -99,7 +99,7 @@ a:hover {
     display: inline;
     margin-left: 5px;
     border: 1px solid #2a2b2b;
-    background: url(/img/clipboard.png) no-repeat;
+    background: url(../img/clipboard.png) no-repeat;
     background-size: cover;
 }
 
