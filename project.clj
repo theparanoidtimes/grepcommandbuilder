@@ -23,7 +23,7 @@
   :cljsbuild {:builds {:app
                        {:source-paths ["src" "env/dev/cljs"]
                         :compiler
-                        {:main "grepcommandbuilder.dev"
+                        {:main "org.theparanoidtimes.grepcommandbuilder.dev"
                          :output-to "public/js/app.js"
                          :output-dir "public/js/out"
                          :asset-path   "js/out"
@@ -31,7 +31,7 @@
                          :optimizations :none
                          :pretty-print  true}
                         :figwheel
-                        {:on-jsload "grepcommandbuilder.core/mount-root"
+                        {:on-jsload "org.theparanoidtimes.grepcommandbuilder.core/mount-root"
                          :open-urls ["http://localhost:3449/index.html"]}}
                        :release
                        {:source-paths ["src" "env/prod/cljs"]

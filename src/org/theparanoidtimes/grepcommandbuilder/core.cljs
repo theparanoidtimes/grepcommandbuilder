@@ -1,4 +1,4 @@
-(ns grepcommandbuilder.core
+(ns org.theparanoidtimes.grepcommandbuilder.core
   (:require
    [reagent.core :as r]
    [keybind.core :as key]
