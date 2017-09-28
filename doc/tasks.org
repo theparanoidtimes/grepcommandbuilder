@@ -33,7 +33,8 @@
    CLOSED: [2017-09-12 Tue 01:13]
 *** DONE Add show 'Copied!' when clicked feature
     CLOSED: [2017-09-12 Tue 01:15]
-** theparanoidtimes.org package
+** DONE theparanoidtimes.org package
+   CLOSED: [2017-09-28 Thu 21:07]
 ** DONE Create github pages branch
    CLOSED: [2017-09-08 Fri 02:21]
 *** DONE Bind the project to theparanoidtimes.org domain
@@ -46,8 +47,10 @@
    CLOSED: [2017-09-25 Mon 00:51]
 ** DONE Update README for master
    CLOSED: [2017-09-28 Thu 20:22]
-** TODO Update README for gh-pages branch
-** TODO Release on github pages
+** DONE Update README for gh-pages branch
+   CLOSED: [2017-09-28 Thu 21:19]
+** DONE Release on github pages
+   CLOSED: [2017-09-28 Thu 21:20]
 
 * Version 0.2
 ** TODO Add help/tutorial text
