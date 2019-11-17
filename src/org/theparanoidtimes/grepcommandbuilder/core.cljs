@@ -209,8 +209,8 @@
     [output-to-file-input]
     [command-display]]
    [:div {:class "copy"}
-    [:p "\u00A9 grepcommandbuilder v0.1 2017 Dejan Josifović "
-     [:a {:href "http://theparanoidtimes.org"} "theparanoidtimes.org"]]]])
+    [:p "grepcommandbuilder v0.1 \u00A9 2017-2019 "
+     [:a {:href "https://theparanoidtimes.org"} "theparanoidtimes.org"] " All rights reserved"]]])
 
 
 ;; Initialize app
