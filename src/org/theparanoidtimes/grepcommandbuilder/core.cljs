@@ -209,7 +209,7 @@
     [output-to-file-input]
     [command-display]]
    [:div {:class "copy"}
-    [:p "grepcommandbuilder v0.1 \u00A9 2017-2019 "
+    [:p (str "grepcommandbuilder v0.1 \u00A9 2017-" (.getFullYear (js/Date.)) " ")
      [:a {:href "https://theparanoidtimes.org"} "theparanoidtimes.org"] " All rights reserved"]]])
 
 
